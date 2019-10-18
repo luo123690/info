@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.six.info.dao.userMapper">
+
+    <!--<select id="queryInfoByUsername" parameterType="java.lang.String" resultType="java.util.Map">-->
+    <!--SELECT id, username, password FROM USER WHERE username = #{username}-->
+    <!--</select>-->
+    <insert id="addUser"  useGeneratedKeys="true" keyProperty="id" >
+        insert into user(username,password,name,tel,indentify,address,sex) values (#{username},#{password},#{name},#{tel},#{indentify},#{address},#{sex})
+    </insert>
+
+    <insert id="addUserInfo"  useGeneratedKeys="true" keyProperty="id" >
+        insert into info(userid,profession,education,honor,skill,technology,patent,paper,professor) values (#{userid},#{profession},#{education},#{honor},#{skill},#{technology},#{patent},#{paper},#{professor})
+    </insert>
+
+    <insert id="addToken"  useGeneratedKeys="true" keyProperty="id" >
+        insert into login(userid,token) values (#{userid},#{token})
+    </insert>
+
+    <update id="updateToken" parameterType="com.six.info.entity.Login" >
+        update login
+        <set>
+            <if test="userid != null" >
+                token = #{token},
+            </if>
+        </set>
+        where userid=#{userid}
+    </update>
+    <update id="update" parameterType="com.six.info.entity.User" >
+        update user
+        <set>
+            <if test="tel !=null">
+                tel = #{tel},
+            </if>
+            <if test="identify != null" >
+                identify = #{identify},
+            </if>
+            <if test="address != null" >
+                address = #{address},
+            </if>
+            <if test="password != null" >
+                password = #{password},
+            </if>
+
+            <if test="sex!= null" >
+                sex = #{sex},
+            </if>
+
+            <if test="name !=null">
+                name = #{name},
+            </if>
+
+        </set>
+        where id=#{id}
+    </update>
+
+<!--    <update id="updateExperts" parameterType="com.six.info.entity.Experts" >-->
+<!--        update experts-->
+<!--        <set>-->
+<!--            <if test="name != null" >-->
+<!--                name = #{name},-->
+<!--            </if>-->
+<!--            <if test="email != null" >-->
+<!--                email = #{email},-->
+<!--            </if>-->
+<!--            <if test="sex!= null" >-->
+<!--                sex = #{sex},-->
+<!--            </if>-->
+<!--            <if test="mobile != null" >-->
+<!--                mobile = #{mobile},-->
+<!--            </if>-->
+<!--            <if test="address != null" >-->
+<!--                address = #{address},-->
+<!--            </if>-->
+<!--            <if test="img!= null" >-->
+<!--                img = #{img},-->
+<!--            </if>-->
+<!--        </set>-->
+<!--        where expertsid=#{expertsid}-->
+<!--    </update>-->
+
+    <select id="findOne" resultType="com.six.info.entity.User">
+        select * from user
+        <where>
+            <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
+            <if test="id!=null">
+                id=#{id}
+            </if>
+            and
+            <if test="username!=null">
+                username=#{username}
+            </if>
+        </where>
+    </select>
+
+    <select id="findPointByHonor" resultType="com.six.info.entity.Point">
+        select * from point
+        <where>
+            <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
+            <if test="honor!=null">
+                honor=#{honor}
+            </if>
+        </where>
+    </select>
+<!--    <select id="findByUserPhoneNum" resultType="com.six.info.entity.User"  parameterType="String">-->
+<!--        select * from user-->
+<!--        <where>-->
+<!--            <if test="_parameter!=null">-->
+<!--                and mobile=#{mobile}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+
+<!--    <select id="findExpert" resultType="com.six.info.entity.User">-->
+<!--        select * from user-->
+<!--        <where>-->
+<!--             role=100-->
+<!--        </where>-->
+<!--    </select>-->
+    <select id="findUseridByToken" resultType="com.six.info.entity.Login">
+        select * from login
+        <where>
+            <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
+            <if test="token!=null">
+                and token=#{token}
+            </if>
+        </where>
+    </select>
+    <select id="findIdByToken" resultType="com.six.info.entity.Login">
+        select id from login
+        <where>
+            <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
+            <if test="token!=null">
+                and token=#{token}
+            </if>
+        </where>
+    </select>
+    <select id="findByUserId" resultType="com.six.info.entity.Login">
+        select * from login
+        <where>
+            <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
+            <if test="userid!=null">
+                userid=#{userid}
+            </if>
+        </where>
+    </select>
+<!--    <select id="checkUnReadQuestionList" resultType="cn.edu.bjfu.igarden.entity.Invite">-->
+<!--        select * from invite-->
+<!--        <where>-->
+<!--            &lt;!&ndash; 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null&ndash;&gt;-->
+<!--            <if test="expertId!=null">-->
+<!--                expertId=#{expertId}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+<!--    <select id="checkUnReadQuestion" resultType="cn.edu.bjfu.igarden.entity.Invite">-->
+<!--        select * from invite-->
+<!--        <where>-->
+<!--            questionId=#{questionId}-->
+<!--            AND-->
+<!--            expertId=#{expertId}-->
+<!--        </where>-->
+
+<!--    </select>-->
+
+<!--    <update id="changeUnReadQuestion" parameterType="cn.edu.bjfu.igarden.entity.Invite" >-->
+<!--        update invite-->
+<!--        <set>-->
+<!--            isread = #{isread}-->
+<!--        </set>-->
+<!--        where id=#{id}-->
+<!--    </update>-->
+
+    <update id="changePassword" parameterType="com.six.info.entity.User" >
+        update user
+        <set>
+            password = #{password}
+        </set>
+        where id=#{id}
+    </update>
+
+
+    <update id="isRead" parameterType="com.six.info.entity.User" >
+        update invite
+        <set>
+            isread = 1
+        </set>
+        <where>
+        questionId=#{questionId}
+        AND
+        expertId=#{expertId}
+       </where>
+    </update>
+
+<!--    <select id="remindTheNews" resultType="cn.edu.bjfu.igarden.entity.Invite">-->
+<!--        select * from invite-->
+<!--        <where>-->
+<!--         expertId=#{expertId}-->
+<!--        </where>-->
+<!--        AND-->
+<!--        <where>-->
+<!--         isread=#{isread}-->
+<!--        </where>-->
+<!--    </select>-->
+
+
+<!--    <select id="queryExpertId" resultType="cn.edu.bjfu.igarden.entity.Invite">-->
+<!--        select * from invite-->
+<!--        <where>-->
+<!--            expertId=#{expertId}-->
+<!--        </where>-->
+<!--    </select>-->
+    <!--<insert id="insertData"  parameterType="java.util.Map">-->
+    <!--INSERT INTO USER ( id, username,password )-->
+    <!--VALUES ( #{id}, #{username, jdbcType=VARCHAR},#{password, jdbcType=VARCHAR});-->
+    <!--</insert>-->
+
+
+</mapper>
