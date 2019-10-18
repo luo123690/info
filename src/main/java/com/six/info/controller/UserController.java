@@ -131,35 +131,20 @@ public class UserController {
     @PostMapping(value = "/login")
     public Object login(HttpServletRequest request, @RequestParam("username") String username, @RequestParam("password") String password) {
         JSONObject jsonObject = new JSONObject();
-        HttpSession session = request.getSession();
-//        String signcodeSession = (String) session.getAttribute("signcode");
-//
-//        if (StringUtils.isEmpty(signcode)) {
-//            jsonObject.put("code","402");
-//            jsonObject.put("message", "前端验证码为空");
-//        }
-//
-//        if (StringUtils.isEmpty(signcodeSession)) {
-//            jsonObject.put("code","403");
-//            jsonObject.put("message", "后台验证码为空");
-//        }
-
-        //验证的时候不区分大小写
-//        if (signcode.equalsIgnoreCase(signcodeSession)) {
-            User user = new User();
-            user.setPassword(password);
-            User userInDataBase = userService.findByUsername(username);
-            if (userInDataBase == null) {
-                jsonObject.put("code", "400");
-                jsonObject.put("message", "用户不存在");
+        User user = new User();
+        user.setPassword(password);
+        User userInDataBase = userService.findByUsername(username);
+        if (userInDataBase == null) {
+            jsonObject.put("code", "400");
+            jsonObject.put("message", "用户不存在");
+        } else {
+            if (!userService.comparePassword(user, userInDataBase)) {
+                jsonObject.put("code", "401");
+                jsonObject.put("message", "密码错误");
             } else {
-                if (!userService.comparePassword(user, userInDataBase)) {
-                    jsonObject.put("code", "401");
-                    jsonObject.put("message", "密码错误");
-                } else {
-                    String token = authenticationService.getToken(userInDataBase);
-                    Login loginInfo = userService.findByUserId(userInDataBase.getId());
-                    if (loginInfo == null) {
+                String token = authenticationService.getToken(userInDataBase);
+                Login loginInfo = userService.findByUserId(userInDataBase.getId());
+                if (loginInfo == null) {
                         Login login = new Login();
                         login.setUserid(userInDataBase.getId());
                         login.setToken(token);
@@ -178,12 +163,6 @@ public class UserController {
                     }
                 }
             }
-//        }
-//        else{
-//            jsonObject.put("code","405");
-//            jsonObject.put("message", "验证码错误");
-//        }
-
         return jsonObject;
     }
 

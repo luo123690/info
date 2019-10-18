@@ -7,11 +7,11 @@
     <!--SELECT id, username, password FROM USER WHERE username = #{username}-->
     <!--</select>-->
     <insert id="addUser"  useGeneratedKeys="true" keyProperty="id" >
-        insert into user(username,password,name,tel,indentify,address,sex) values (#{username},#{password},#{name},#{tel},#{indentify},#{address},#{sex})
+        insert into user(username,password,name,tel,indentify,address,sex,age,college,profession,department,graduate,intro) values (#{username},#{password},#{name},#{tel},#{indentify},#{address},#{sex},#{age},#{college},#{profession},#{department},#{graduate},#{intro})
     </insert>
 
     <insert id="addUserInfo"  useGeneratedKeys="true" keyProperty="id" >
-        insert into info(userid,profession,education,honor,skill,technology,patent,paper,professor) values (#{userid},#{profession},#{education},#{honor},#{skill},#{technology},#{patent},#{paper},#{professor})
+        insert into info(userid,profession,education,honor,skill,technology,patent,paper,professor,point) values (#{userid},#{profession},#{education},#{honor},#{skill},#{technology},#{patent},#{paper},#{professor},#{point})
     </insert>
 
     <insert id="addToken"  useGeneratedKeys="true" keyProperty="id" >
@@ -87,7 +87,7 @@
             <if test="id!=null">
                 id=#{id}
             </if>
-            and
+            or
             <if test="username!=null">
                 username=#{username}
             </if>
@@ -100,6 +100,15 @@
             <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
             <if test="honor!=null">
                 honor=#{honor}
+            </if>
+        </where>
+    </select>
+    <select id="findUserPoint" resultType="com.six.info.entity.Info">
+        select * from info
+        <where>
+            <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
+            <if test="id!=null">
+                id=#{id}
             </if>
         </where>
     </select>

@@ -14,7 +14,7 @@ public interface userMapper {
     List<User> findExpert();
     int addUser(User user);
     int addUserInfo(Info info);
-    Info findUserInfo();
+    Info findUserInfo(int id);
     Point findPointByHonor(String string);
     int addExperts(User user);
     int update(User user);

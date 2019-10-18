@@ -14,6 +14,12 @@ public class User {
     private String name;
     private String password;
     private String tel;
+    private int age;
+    private String college;
+    private String profession;
+    private String department;
+    private String graduate;
+    private String intro;
     private String indentify;
     private String avatar;
     private String address;
@@ -108,7 +114,55 @@ public class User {
     public void setNews(int news) {
         this.news = news;
     }
-//    @Override
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getCollege() {
+        return college;
+    }
+
+    public void setCollege(String college) {
+        this.college = college;
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getGraduate() {
+        return graduate;
+    }
+
+    public void setGraduate(String graduate) {
+        this.graduate = graduate;
+    }
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
+    }
+    //    @Override
 //    public String toString() {
 //        return "User{" +
 //                "id=" + id +
