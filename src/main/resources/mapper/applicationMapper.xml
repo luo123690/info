@@ -23,7 +23,7 @@
     </select>
 
     <insert id="addUserApply"  useGeneratedKeys="true" keyProperty="id" >
-        insert into application(userid,application) values (#{userid},#{application})
+        insert into application(userid,type,professionF,professionS) values (#{userid},#{type},#{professionF},#{professionS})
     </insert>
 
 

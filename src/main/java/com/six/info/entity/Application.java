@@ -5,7 +5,9 @@ import java.util.Date;
 public class Application {
     private int id;
     private int userid;
-    private String application;
+    private String type;
+    private String professionF;
+    private String professionS;
     private Date date;
 
     public int getId() {
@@ -24,12 +26,28 @@ public class Application {
         this.userid = userid;
     }
 
-    public String getApplication() {
-        return application;
+    public String getType() {
+        return type;
     }
 
-    public void setApplication(String application) {
-        this.application = application;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getProfessionF() {
+        return professionF;
+    }
+
+    public void setProfessionF(String professionF) {
+        this.professionF = professionF;
+    }
+
+    public String getProfessionS() {
+        return professionS;
+    }
+
+    public void setProfessionS(String professionS) {
+        this.professionS = professionS;
     }
 
     public Date getDate() {

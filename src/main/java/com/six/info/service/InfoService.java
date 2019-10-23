@@ -25,10 +25,15 @@ public class InfoService {
     }
 
     public Info addUserInfo(Info info){
+        userMapper.addUserInfo(info);
+        return info;
+    }
+
+    public Info addInfo(Info info){
         double sumPoint=0;
         double professionPoint=0;
         double professionWeight=0;
-        if(info.getProfession()!=null&info.getProfession().length()!=0){
+        if(info.getProfession()!=null&&info.getProfession().length()!=0){
             //根据用户选择的专业的ID，按照“,”分割开，并查询数据库中对应的分数与权重
             ArrayList<Integer> professionPointList = new ArrayList<Integer>();
             String[] professionList=info.getProfession().split(",");
@@ -46,7 +51,7 @@ public class InfoService {
         //根据用户选择的教育的ID，按照“,”分割开，并查询数据库中对应的分数与权重
         double educationPoint=0.0;
         double educationWeight=0.0 ;
-        if(info.getEducation()!=null&info.getEducation().length()!=0){
+        if(info.getEducation()!=null&&info.getEducation().length()!=0){
             ArrayList<Integer> educationPointList = new ArrayList<Integer>();
             String[] educationList=info.getEducation().split(",");
             for(int i=0;i<educationList.length;i++){
@@ -60,7 +65,7 @@ public class InfoService {
         double honorSumPoint=0;
         double honorPoint=0;
         double honorWeight=0;
-        if(info.getHonor()!=null&info.getHonor().length()!=0){
+        if(info.getHonor()!=null&&info.getHonor().length()!=0){
             ArrayList<Integer> honorPointList = new ArrayList<Integer>();
             String[] honorList=info.getHonor().split(",");
             for(int i=0;i<honorList.length;i++){
@@ -78,7 +83,7 @@ public class InfoService {
         double skillSumPoint=0;
         double skillPoint=0;
         double skillWeight=0;
-        if(info.getSkill()!=null&info.getSkill().length()!=0){
+        if(info.getSkill()!=null&&info.getSkill().length()!=0){
             ArrayList<Integer> skillPointList = new ArrayList<Integer>();
             String[] skillList=info.getSkill().split(",");
             for(int i=0;i<skillList.length;i++){
@@ -97,7 +102,7 @@ public class InfoService {
         double tecSumPoint=0;
         double tecPoint=0;
         double tecWeight=0;
-        if(info.getTechnology()!=null&info.getTechnology().length()!=0){
+        if(info.getTechnology()!=null&&info.getTechnology().length()!=0){
             ArrayList<Integer> tecPointList = new ArrayList<Integer>();
             String[] tecList=info.getTechnology().split(",");
             for(int i=0;i<tecList.length;i++){
@@ -116,7 +121,7 @@ public class InfoService {
         double patentSumPoint=0;
         double patentPoint=0;
         double patentWeight=0;
-        if(info.getPatent()!=null&info.getPatent().length()!=0){
+        if(info.getPatent()!=null&&info.getPatent().length()!=0){
             ArrayList<Integer> patentPointList = new ArrayList<Integer>();
             String[] patentList=info.getPatent().split(",");
             for(int i=0;i<patentList.length;i++){
@@ -134,7 +139,7 @@ public class InfoService {
         double paperSumPoint=0;
         double paperPoint=0;
         double paperWeight=0;
-        if(info.getPaper()!=null&info.getPaper().length()!=0){
+        if(info.getPaper()!=null&&info.getPaper().length()!=0){
             ArrayList<Integer> paperPointList = new ArrayList<Integer>();
             String[] paperList=info.getPaper().split(",");
             for(int i=0;i<paperList.length;i++){
@@ -152,7 +157,7 @@ public class InfoService {
         double proSumPoint=0;
         double proPoint=0;
         double proWeight=0;
-        if(info.getProfessor()!=null&info.getProfession().length()!=0){
+        if(info.getProfessor()!=null&&info.getProfession().length()!=0){
             ArrayList<Integer> proPointList = new ArrayList<Integer>();
             String[] proList=info.getProfessor().split(",");
             for(int i=0;i<proList.length;i++){
@@ -167,17 +172,9 @@ public class InfoService {
         }
 
         sumPoint = professionPoint+educationPoint+honorPoint+skillPoint+tecPoint+patentPoint+paperPoint+proPoint;
-        System.out.println("1:"+professionPoint);
-        System.out.println("2:"+educationPoint);
-        System.out.println("3:"+honorPoint);
-        System.out.println("4:"+skillPoint);
-        System.out.println("5:"+tecPoint);
-        System.out.println("6:"+patentPoint);
-        System.out.println("7:"+paperPoint);
-        System.out.println("8:"+proPoint);
-        System.out.println(sumPoint);
+
         info.setPoint(sumPoint);
-        userMapper.addUserInfo(info);
+        userMapper.addInfo(info);
         return info;
     }
     public Application addUserApply(Application application){
@@ -213,5 +210,28 @@ public class InfoService {
         Set set =new HashSet(proSList);
         List proS = new ArrayList(set);
         return proS;
+    }
+    public int updateUserPoint(Info info){
+        info.setIsread(1);
+        return userMapper.updateUserPoint(info);
+    }
+    public Application findApplyInfoById(int id){
+        return userMapper.findApplyInfoById(id);
+    }
+
+    public Type findTypeByProfession(Type type){
+        Type type1=userMapper.findTypeByProfession(type);
+        return type1;
+    }
+
+    public List<Info> findInfoList(Type type){
+        Type type1=userMapper.findTypeByProfession(type);
+        System.out.println(type1.getId());
+        List<Info> InfoList =userMapper.findInfoList(type1.getId());
+        return InfoList;
+    }
+
+    public Info findInfoById(int id){
+        return userMapper.findInfoById(id);
     }
 }

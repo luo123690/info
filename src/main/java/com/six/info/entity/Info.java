@@ -3,6 +3,8 @@ package com.six.info.entity;
 public class Info {
     private Integer id;
     private int userid;
+    private int applyid;
+    private int typeid;
     private String profession;
     private String education;
     private String honor;
@@ -28,6 +30,22 @@ public class Info {
 
     public void setUserid(int userid) {
         this.userid = userid;
+    }
+
+    public int getApplyid() {
+        return applyid;
+    }
+
+    public void setApplyid(int applyid) {
+        this.applyid = applyid;
+    }
+
+    public int getTypeid() {
+        return typeid;
+    }
+
+    public void setTypeid(int typeid) {
+        this.typeid = typeid;
     }
 
     public String getProfession() {

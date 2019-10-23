@@ -1,9 +1,6 @@
 package com.six.info.dao;
 
-import com.six.info.entity.Info;
-import com.six.info.entity.Login;
-import com.six.info.entity.Point;
-import com.six.info.entity.User;
+import com.six.info.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,9 +8,15 @@ import java.util.List;
 @Mapper
 public interface userMapper {
     User findOne(User user);
+    Type findTypeByProfession(Type type);
+    List<Info> findInfoList(int applyid);
+    Application findApplyInfoById(int id);
+    Info findInfoById(int id);
     List<User> findExpert();
     int addUser(User user);
     int addUserInfo(Info info);
+    int addInfo(Info info);
+    int updateUserPoint(Info info);
     Info findUserInfo(int id);
     Point findPointByHonor(String string);
     int addExperts(User user);

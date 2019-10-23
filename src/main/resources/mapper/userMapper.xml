@@ -11,8 +11,43 @@
     </insert>
 
     <insert id="addUserInfo"  useGeneratedKeys="true" keyProperty="id" >
-        insert into info(userid,profession,education,honor,skill,technology,patent,paper,professor,point) values (#{userid},#{profession},#{education},#{honor},#{skill},#{technology},#{patent},#{paper},#{professor},#{point})
+        insert into info(userid,applyid)
+        values (#{userid},#{applyid})
     </insert>
+
+    <update id="addInfo" parameterType="com.six.info.entity.Info" >
+        update info
+        <set>
+            <if test="profession != null" >
+                profession = #{profession},
+            </if>
+            <if test="education != null" >
+                education = #{education},
+            </if>
+            <if test="honor != null" >
+                honor = #{honor},
+            </if>
+            <if test="skill != null" >
+                skill = #{skill},
+            </if>
+            <if test="technology != null" >
+                technology = #{technology},
+            </if>
+            <if test="patent != null" >
+                patent = #{patent},
+            </if>
+            <if test="paper != null" >
+                paper = #{paper},
+            </if>
+            <if test="professor != null" >
+                professor = #{professor},
+            </if>
+            <if test="point != null" >
+                point = #{point},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
 
     <insert id="addToken"  useGeneratedKeys="true" keyProperty="id" >
         insert into login(userid,token) values (#{userid},#{token})
@@ -27,6 +62,21 @@
         </set>
         where userid=#{userid}
     </update>
+
+    <update id="updateUserPoint" parameterType="com.six.info.entity.Info" >
+        update info
+        <set>
+            <if test="point != null" >
+                point = #{point},
+            </if>
+            <if test="isread != null" >
+                isread = #{isread},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+
     <update id="update" parameterType="com.six.info.entity.User" >
         update user
         <set>
@@ -87,9 +137,56 @@
             <if test="id!=null">
                 id=#{id}
             </if>
-            or
             <if test="username!=null">
                 username=#{username}
+            </if>
+        </where>
+    </select>
+
+    <select id="findTypeByProfession" resultType="com.six.info.entity.Type">
+        select * from type
+        <where>
+            <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
+            <if test="professionF!=null">
+                <if test="professionF!=''">
+                    professionF=#{professionF}
+                </if>
+            </if>
+
+            <if test="professionS!=null">
+                <if test="professionS!=''">
+                    and    professionS=#{professionS}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <select id="findInfoList" resultType="com.six.info.entity.Info">
+        select * from info
+        <where>
+            <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
+            <if test="applyid!=null">
+                applyid=#{applyid}
+            </if>
+        </where>
+    </select>
+
+    <select id="findApplyInfoById" resultType="com.six.info.entity.Application">
+        select * from application
+        <where>
+            <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
+            <if test="id!=null">
+                id=#{id}
+            </if>
+        </where>
+    </select>
+
+    <select id="findInfoById" resultType="com.six.info.entity.Info">
+        select * from info
+        <where>
+            <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
+            <if test="id!=null">
+                id=#{id}
             </if>
         </where>
     </select>
@@ -111,6 +208,17 @@
                 id=#{id}
             </if>
         </where>
+    </select>
+
+    <select id="findAllUserList" resultType="com.six.info.entity.Info">
+        select * from info
+        <where>
+            <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
+            <if test="isread!=null">
+                isread=#{isread}
+            </if>
+        </where>
+        order by point DESC
     </select>
 <!--    <select id="findByUserPhoneNum" resultType="com.six.info.entity.User"  parameterType="String">-->
 <!--        select * from user-->
