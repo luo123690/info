@@ -166,7 +166,22 @@
         <where>
             <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
             <if test="applyid!=null">
-                applyid=#{applyid}
+                applyid=#{applyid} and
+            </if>
+                isread=#{isread}
+        </where>
+        ORDER BY point DESC
+    </select>
+
+
+
+
+    <select id="findInfoListByStatus" resultType="com.six.info.entity.Info">
+        select * from info
+        <where>
+            <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
+            <if test="isread!=null">
+                isread=#{isread}
             </if>
         </where>
     </select>
@@ -244,6 +259,7 @@
             </if>
         </where>
     </select>
+
     <select id="findIdByToken" resultType="com.six.info.entity.Login">
         select id from login
         <where>
@@ -253,6 +269,7 @@
             </if>
         </where>
     </select>
+
     <select id="findByUserId" resultType="com.six.info.entity.Login">
         select * from login
         <where>

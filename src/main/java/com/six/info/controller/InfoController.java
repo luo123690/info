@@ -5,6 +5,7 @@ import com.six.info.entity.*;
 import com.six.info.service.InfoService;
 import com.six.info.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -145,12 +148,32 @@ public class InfoController {
     }
     //更新用户分数
     @PostMapping("/updateUserPoint")
-    public Object updateUserPoint(Info info) {
+    public Object updateUserPoint(Info info,ServletRequest request) {
         JSONObject jsonObject = new JSONObject();
-        int data=infoService.updateUserPoint(info);
-        jsonObject.put("code", "200");
-        jsonObject.put("message", "修改成功");
-        jsonObject.put("data", data);
+        HttpServletRequest req = (HttpServletRequest) request;
+        String token = req.getHeader("token");
+        if (token == null) {
+            jsonObject.put("code", "405");
+            jsonObject.put("message", "无token！");
+        } else {
+            Login loginuser = userService.findUseridByToken(token);
+            if (loginuser == null) {
+                jsonObject.put("code", "501");
+                jsonObject.put("message", "没有此用户");
+            } else {
+                //数据库中的user信息
+                User user = userService.findById(loginuser.getUserid());
+                if(user.getType()==1){
+                    int data = infoService.updateUserPoint(info);
+                    jsonObject.put("code", "200");
+                    jsonObject.put("message", "修改成功");
+                    jsonObject.put("data", data);
+                }else {
+                    jsonObject.put("code", "400");
+                    jsonObject.put("message", "普通用户无权限！");
+                }
+            }
+        }
         return jsonObject;
     }
     //根据id查询申报ID
@@ -174,16 +197,48 @@ public class InfoController {
         jsonObject.put("data", data);
         return jsonObject;
     }
+
+
     //查询信息列表
     @GetMapping("/findInfoList")
     public Object findInfoList(Type type){
         JSONObject jsonObject = new JSONObject();
         List<Info> data=infoService.findInfoList(type);
+        List<Info> data1=new ArrayList<Info>();
+        for (int i =0;i<data.size();i++){
+            if(data.get(i).getIsread()==1){
+                data1.add(data.get(i));
+
+            }
+        }
+        jsonObject.put("code", "200");
+        jsonObject.put("message", "查询成功");
+        jsonObject.put("data", data1);
+        return jsonObject;
+    }
+
+    //查询信息列表
+    @GetMapping("/findTypeById")
+    public Object findTypeById(int id){
+        JSONObject jsonObject = new JSONObject();
+        Type type=infoService.findTypeById(id);
+        jsonObject.put("code", "200");
+        jsonObject.put("message", "查询成功");
+        jsonObject.put("data", type);
+        return jsonObject;
+    }
+
+
+    @GetMapping("/findInfoListByStatus")
+    public Object findInfoListByStatus(int isread){
+        JSONObject jsonObject = new JSONObject();
+        List<Info> data=infoService.findInfoListByStatus(isread);
         jsonObject.put("code", "200");
         jsonObject.put("message", "查询成功");
         jsonObject.put("data", data);
         return jsonObject;
     }
+
     @GetMapping("/findTypeByProfession")
     public Object findTypeByProfession(Type type){
         JSONObject jsonObject = new JSONObject();

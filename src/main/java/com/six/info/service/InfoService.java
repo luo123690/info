@@ -223,14 +223,17 @@ public class InfoService {
         Type type1=userMapper.findTypeByProfession(type);
         return type1;
     }
-
+    public Type findTypeById(int id){
+        return applicationMapper.findTypeById(id);
+    }
     public List<Info> findInfoList(Type type){
         Type type1=userMapper.findTypeByProfession(type);
-        System.out.println(type1.getId());
-        List<Info> InfoList =userMapper.findInfoList(type1.getId());
+        List<Info> InfoList =userMapper.findInfoList(type1.getId(),1);
         return InfoList;
     }
-
+    public List<Info> findInfoListByStatus(int isread){
+        return userMapper.findInfoListByStatus(isread);
+    }
     public Info findInfoById(int id){
         return userMapper.findInfoById(id);
     }

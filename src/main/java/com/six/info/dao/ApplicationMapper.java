@@ -14,4 +14,5 @@ public interface ApplicationMapper {
     List<Type> findType();
     List<Type> findProfessionF(String type);
     List<Type> findProfessionS(String professionF);
+    Type findTypeById(int id);
 }
