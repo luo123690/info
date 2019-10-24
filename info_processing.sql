@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50711
 File Encoding         : 65001
 
-Date: 2019-10-18 19:36:29
+Date: 2019-10-24 10:35:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,7 +21,7 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `id` varchar(255) NOT NULL COMMENT '员工ID',
-  `account` varchar(255) DEFAULT NULL COMMENT '管理员账号',
+  `username` varchar(255) DEFAULT NULL COMMENT '管理员账号',
   `password` varchar(255) DEFAULT NULL COMMENT '管理员密码',
   `avatar` text COMMENT '管理员头像',
   `number` varchar(255) DEFAULT NULL COMMENT '管理员编号',
@@ -33,21 +33,37 @@ CREATE TABLE `admin` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for admin_token
+-- ----------------------------
+DROP TABLE IF EXISTS `admin_token`;
+CREATE TABLE `admin_token` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `token` varchar(255) DEFAULT NULL,
+  `adminid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of admin_token
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for application
 -- ----------------------------
 DROP TABLE IF EXISTS `application`;
 CREATE TABLE `application` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) DEFAULT NULL,
-  `application` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `professionF` varchar(255) DEFAULT NULL,
+  `professionS` varchar(255) DEFAULT NULL,
   `time` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of application
 -- ----------------------------
-INSERT INTO `application` VALUES ('1', '4', '123', '2019-10-18 17:25:05');
 
 -- ----------------------------
 -- Table structure for info
@@ -56,6 +72,8 @@ DROP TABLE IF EXISTS `info`;
 CREATE TABLE `info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) DEFAULT NULL,
+  `applyid` int(11) DEFAULT NULL,
+  `typeid` int(11) DEFAULT NULL,
   `profession` varchar(255) DEFAULT NULL,
   `education` varchar(255) DEFAULT NULL,
   `honor` varchar(255) DEFAULT NULL,
@@ -67,11 +85,15 @@ CREATE TABLE `info` (
   `isread` int(11) DEFAULT '0',
   `point` double(11,2) DEFAULT '0.00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of info
 -- ----------------------------
+INSERT INTO `info` VALUES ('37', '7', '13', null, '初级（技师）职称', '研究生（硕士）学历', '国家级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', '国家级技能竞赛三等奖', '国家级科技成果一等奖', null, 'CN期刊第一作者/篇', '国际专业认证高级证书', '1', '65.00');
+INSERT INTO `info` VALUES ('38', '7', '0', null, null, null, null, null, null, null, null, null, '1', '0.00');
+INSERT INTO `info` VALUES ('39', '7', '13', null, '初级（技师）职称', '研究生（硕士）学历', '国家级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', '国家级技能竞赛三等奖', '国家级科技成果一等奖', '', 'CN期刊第一作者/篇', '国际专业认证高级证书', '1', '68.00');
+INSERT INTO `info` VALUES ('40', '7', '13', null, '初级（技师）职称', '研究生（硕士）学历', '国家级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', '国家级技能竞赛三等奖', '国家级科技成果一等奖', '', 'CN期刊第一作者/篇', '国际专业认证高级证书', '1', '60.00');
 
 -- ----------------------------
 -- Table structure for login
@@ -82,13 +104,14 @@ CREATE TABLE `login` (
   `token` varchar(255) DEFAULT NULL,
   `userid` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of login
 -- ----------------------------
-INSERT INTO `login` VALUES ('1', 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1In0.iL2jjctc7JrtdWanR9dGmB4Jxlu0J2zIxEtwo5ZLqWU', '5');
-INSERT INTO `login` VALUES ('2', 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2In0.BTKONZ_u0EA48L2K-39C5_mhOa3MpW_PjThWoaj7urY', '6');
+INSERT INTO `login` VALUES ('1', '123', '7');
+INSERT INTO `login` VALUES ('2', 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1In0.iL2jjctc7JrtdWanR9dGmB4Jxlu0J2zIxEtwo5ZLqWU', '5');
+INSERT INTO `login` VALUES ('3', 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4In0.xuxUB27LbK8pp0viPb_Wg3R_b0IN0kbPtIQO8cYF8IU', '8');
 
 -- ----------------------------
 -- Table structure for point
@@ -255,19 +278,20 @@ CREATE TABLE `user` (
   `indentify` varchar(60) DEFAULT NULL,
   `address` varchar(60) DEFAULT NULL,
   `sex` varchar(30) DEFAULT NULL,
-  `type` varchar(50) DEFAULT NULL,
+  `type` int(50) DEFAULT '99',
   `college` varchar(255) DEFAULT NULL,
   `profession` varchar(255) DEFAULT NULL,
   `department` varchar(255) DEFAULT NULL,
   `graduate` varchar(255) DEFAULT NULL,
   `intro` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '1231234', '1231234', '骆炳捷', null, '17600905236', '6223011111111111', '北京市海淀区', '男', '普通用户', null, null, null, null, null);
-INSERT INTO `user` VALUES ('5', '123123', '96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e', '骆炳捷', null, '17600905236', null, '北京市海淀区', '男', null, null, null, null, null, null);
-INSERT INTO `user` VALUES ('6', '123456', '96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e', '骆炳捷', null, '17600905236', '62230111111111111', '北京市海淀区', '男', null, null, null, null, null, null);
-INSERT INTO `user` VALUES ('7', '123123123', '932f3c1b56257ce8539ac269d7aab42550dacf8818d075f0bdf1990562aae3ef', '骆炳捷', '26', '17600905236', '62230111111111111', '北京市海淀区', '男', null, '北京林业大学', '软件工程', '人力部', '2019.07', '参与过大型项目的设计、开发工作');
+INSERT INTO `user` VALUES ('1', '1231234', '1231234', '骆炳捷', null, '17600905236', '6223011111111111', '北京市海淀区', '男', '99', null, null, null, null, null);
+INSERT INTO `user` VALUES ('5', '123123', '96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e', '骆炳捷', null, '17600905236', null, '北京市海淀区', '男', '99', null, null, null, null, null);
+INSERT INTO `user` VALUES ('6', '123456', '96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e', '骆炳捷', null, '17600905236', '62230111111111111', '北京市海淀区', '男', '99', null, null, null, null, null);
+INSERT INTO `user` VALUES ('7', '123123123', '932f3c1b56257ce8539ac269d7aab42550dacf8818d075f0bdf1990562aae3ef', '骆炳捷', '26', '17600905236', '62230111111111111', '北京市海淀区', '男', '99', '北京林业大学', '软件工程', '人力部', '2019.07', '参与过大型项目的设计、开发工作');
+INSERT INTO `user` VALUES ('8', 'admin', '96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e', '管理员', '30', '17600905236', '62230111111111111', '北京市海淀区', '男', '1', null, null, null, null, null);
