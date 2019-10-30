@@ -9,7 +9,9 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -128,8 +130,11 @@ public class UserController {
 //        return jsonObject;
 //    }
 
-    @PostMapping(value = "/login")
-    public Object login(@RequestParam("username") String username, @RequestParam("password") String password) {
+    @PostMapping(value = "/userLogin")
+    public Object login(@RequestParam("username") String username, @RequestParam("password") String password, ServletResponse servletResponse) {
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST");
         JSONObject jsonObject = new JSONObject();
         User user = new User();
         user.setPassword(password);
@@ -173,7 +178,9 @@ public class UserController {
     }
 
     @PostMapping(value = "/adminLogin")
-    public Object adminLogin(@RequestParam("username") String username, @RequestParam("password") String password) {
+    public Object adminLogin(@RequestParam("username") String username, @RequestParam("password") String password,ServletResponse servletResponse) {
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setHeader("Access-Control-Allow-Origin", "*");
         JSONObject jsonObject = new JSONObject();
         User user = new User();
         user.setPassword(password);
@@ -231,7 +238,9 @@ public class UserController {
      */
 
     @PostMapping(value = "/register")
-    public Object addOne(User user) {
+    public Object addOne(User user,ServletResponse servletResponse) {
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setHeader("Access-Control-Allow-Origin", "*");
         JSONObject jsonObject = new JSONObject();
         if (userService.findByUsername(user.getUsername()) != null) {
             jsonObject.put("code", "400");
@@ -452,10 +461,10 @@ public class UserController {
      */
 
     @PostMapping(value = "/self")
-    public Object findById(ServletRequest request) {
+    public Object findById(ServletResponse servletResponse,HttpServletRequest request) {
+
         JSONObject jsonObject = new JSONObject();
-        HttpServletRequest req = (HttpServletRequest) request;
-        String token = req.getHeader("token");
+        String token = request.getHeader("token");
         if (token == null) {
             jsonObject.put("code", "405");
             jsonObject.put("message", "无token！");
@@ -490,8 +499,10 @@ public class UserController {
         return jsonObject;
     }
     @PostMapping(value = "/getUserInfoById")
-    public Object getUserInfoById(@RequestParam("id")int id){
-            JSONObject jsonObject = new JSONObject();
+    public Object getUserInfoById(@RequestParam("id")int id,ServletResponse servletResponse){
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        JSONObject jsonObject = new JSONObject();
         User user = userService.findById(id);
         if(user!=null){
             jsonObject.put("code",200);

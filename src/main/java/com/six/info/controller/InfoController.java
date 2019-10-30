@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +32,7 @@ public class InfoController {
     }
     //添加一条志愿信息
     @PostMapping("/addUserInfo")
-    public Object addUserInfo(Type type, ServletRequest request){
+    public Object addUserInfo(Type type,String name, ServletRequest request){
         JSONObject jsonObject = new JSONObject();
         HttpServletRequest req = (HttpServletRequest) request;
         String token = req.getHeader("token");
@@ -49,7 +51,9 @@ public class InfoController {
                 info.setUserid(user.getId());
                 if(infoService.findTypeByProfession(type)!=null){
                     info.setTypeid(infoService.findTypeByProfession(type).getId());
+                    System.out.println(infoService.findTypeByProfession(type).getId());
                     //从数据库返回的密码
+                    info.setName(name);
                     infoService.addUserInfo(info);
                     jsonObject.put("code", "200");
                     jsonObject.put("message", "添加成功");
@@ -65,7 +69,9 @@ public class InfoController {
     }
     //补全志愿信息资料
     @PostMapping("/updateUserInfo")
-    public Object updateUserInfo(Info info, ServletRequest request){
+    public Object updateUserInfo(Info info, ServletRequest request,ServletResponse servletResponse){
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setHeader("Access-Control-Allow-Origin", "*");
         JSONObject jsonObject = new JSONObject();
         HttpServletRequest req = (HttpServletRequest) request;
         String token = req.getHeader("token");
@@ -92,7 +98,9 @@ public class InfoController {
     }
 
     @PostMapping("/addUserApply")
-    public Object addUserApply(Application application, ServletRequest request) {
+    public Object addUserApply(Application application, ServletRequest request,ServletResponse servletResponse) {
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setHeader("Access-Control-Allow-Origin", "*");
         JSONObject jsonObject = new JSONObject();
         HttpServletRequest req = (HttpServletRequest) request;
         String token = req.getHeader("token");
@@ -118,7 +126,9 @@ public class InfoController {
     }
     //返回一级分类
     @GetMapping("/findType")
-    public Object findType() {
+    public Object findType( ServletResponse servletResponse) {
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setHeader("Access-Control-Allow-Origin", "*");
         JSONObject jsonObject = new JSONObject();
         List data=infoService.findType();
         jsonObject.put("code", "200");
@@ -128,7 +138,9 @@ public class InfoController {
     }
     //返回二级分类
     @GetMapping("/findProfessionF")
-    public Object findProfessionF(String type) {
+    public Object findProfessionF(String type,ServletResponse servletResponse) {
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setHeader("Access-Control-Allow-Origin", "*");
         JSONObject jsonObject = new JSONObject();
         List data=infoService.findProfessionF(type);
         jsonObject.put("code", "200");
@@ -136,9 +148,21 @@ public class InfoController {
         jsonObject.put("data", data);
         return jsonObject;
     }
+    @GetMapping("/findListByType")
+    public Object findListByType(String type) {
+        JSONObject jsonObject = new JSONObject();
+        List data=infoService.findListByType(type);
+        jsonObject.put("code", "200");
+        jsonObject.put("message", "查询成功");
+        jsonObject.put("data", data);
+        return jsonObject;
+    }
+
     //返回三级分类
     @GetMapping("/findProfessionS")
-    public Object findProfessionS(String professionF) {
+    public Object findProfessionS(String professionF,ServletResponse servletResponse) {
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setHeader("Access-Control-Allow-Origin", "*");
         JSONObject jsonObject = new JSONObject();
         List data=infoService.findProfessionS(professionF);
         jsonObject.put("code", "200");
@@ -148,7 +172,9 @@ public class InfoController {
     }
     //更新用户分数
     @PostMapping("/updateUserPoint")
-    public Object updateUserPoint(Info info,ServletRequest request) {
+    public Object updateUserPoint(Info info,ServletRequest request,ServletResponse servletResponse) {
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setHeader("Access-Control-Allow-Origin", "*");
         JSONObject jsonObject = new JSONObject();
         HttpServletRequest req = (HttpServletRequest) request;
         String token = req.getHeader("token");
@@ -178,7 +204,9 @@ public class InfoController {
     }
     //根据id查询申报ID
     @GetMapping("/findApplyInfoById")
-    public Object findApplyInfoById(int id){
+    public Object findApplyInfoById(int id,ServletResponse servletResponse){
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setHeader("Access-Control-Allow-Origin", "*");
         JSONObject jsonObject = new JSONObject();
         Application data=infoService.findApplyInfoById(id);
         jsonObject.put("code", "200");
@@ -189,7 +217,9 @@ public class InfoController {
 
     //根据id查询志愿信息
     @GetMapping("/findInfoById")
-    public Object findInfoById(int id){
+    public Object findInfoById(int id,ServletResponse servletResponse){
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setHeader("Access-Control-Allow-Origin", "*");
         JSONObject jsonObject = new JSONObject();
         Info data=infoService.findInfoById(id);
         jsonObject.put("code", "200");
@@ -201,7 +231,9 @@ public class InfoController {
 
     //查询信息列表
     @GetMapping("/findInfoList")
-    public Object findInfoList(Type type){
+    public Object findInfoList(Type type,ServletResponse servletResponse){
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setHeader("Access-Control-Allow-Origin", "*");
         JSONObject jsonObject = new JSONObject();
         List<Info> data=infoService.findInfoList(type);
         List<Info> data1=new ArrayList<Info>();
@@ -219,7 +251,9 @@ public class InfoController {
 
     //查询信息列表
     @GetMapping("/findTypeById")
-    public Object findTypeById(int id){
+    public Object findTypeById(int id,ServletResponse servletResponse){
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setHeader("Access-Control-Allow-Origin", "*");
         JSONObject jsonObject = new JSONObject();
         Type type=infoService.findTypeById(id);
         jsonObject.put("code", "200");
@@ -230,22 +264,48 @@ public class InfoController {
 
 
     @GetMapping("/findInfoListByStatus")
-    public Object findInfoListByStatus(int isread){
+    public Object findInfoListByStatus(int isread,int page)throws Exception{
+
         JSONObject jsonObject = new JSONObject();
-        List<Info> data=infoService.findInfoListByStatus(isread);
+        //从第几条数据开始
+
+        List<Info> data=infoService.findInfoListByStatus(isread,page,8);
+        int pages=(int)Math.ceil(data.size()/8);
+        List<Info> list=new ArrayList<Info>();
+        int firstIndex = (page - 1) * 8;
+        int lastIndex = page * 8;
+        try {
+            list =   data.subList(firstIndex, lastIndex);
+            //主要代码隐藏
+        }catch (IndexOutOfBoundsException e){
+            //处理数组越界异常
+            e.getMessage();
+        }
         jsonObject.put("code", "200");
         jsonObject.put("message", "查询成功");
-        jsonObject.put("data", data);
+        jsonObject.put("pages", pages);
+        jsonObject.put("data", list);
         return jsonObject;
     }
 
     @GetMapping("/findTypeByProfession")
-    public Object findTypeByProfession(Type type){
+    public Object findTypeByProfession(Type type,ServletResponse servletResponse){
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setHeader("Access-Control-Allow-Origin", "*");
         JSONObject jsonObject = new JSONObject();
         System.out.println(type.getProfessionF()+type.getProfessionS());
         jsonObject.put("code", "200");
         jsonObject.put("message", "查询成功");
         jsonObject.put("data",infoService.findTypeByProfession(type));
+        return jsonObject;
+    }
+
+    @GetMapping("/findAllList")
+    public Object findAllList(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", "200");
+        jsonObject.put("message", "查询成功");
+        jsonObject.put("data",infoService.findAllList());
         return jsonObject;
     }
 }

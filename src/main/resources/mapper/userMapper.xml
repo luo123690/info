@@ -11,8 +11,8 @@
     </insert>
 
     <insert id="addUserInfo"  useGeneratedKeys="true" keyProperty="id" >
-        insert into info(userid,applyid)
-        values (#{userid},#{applyid})
+        insert into info(userid,typeid,name)
+        values (#{userid},#{typeid},#{name})
     </insert>
 
     <update id="addInfo" parameterType="com.six.info.entity.Info" >
@@ -147,17 +147,12 @@
         select * from type
         <where>
             <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
-            <if test="professionF!=null">
                 <if test="professionF!=''">
                     professionF=#{professionF}
                 </if>
-            </if>
-
-            <if test="professionS!=null">
                 <if test="professionS!=''">
                     and    professionS=#{professionS}
                 </if>
-            </if>
         </where>
     </select>
 

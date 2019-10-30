@@ -5,6 +5,7 @@ public class Point {
     private String honor;
     private int point;
     private double weight;
+    private String type;
 
     public Integer getId() {
         return id;
@@ -36,5 +37,13 @@ public class Point {
 
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

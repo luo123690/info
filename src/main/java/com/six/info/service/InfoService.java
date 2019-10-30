@@ -1,5 +1,6 @@
 package com.six.info.service;
 
+import com.six.info.config.GlobalExceptionHandler;
 import com.six.info.dao.ApplicationMapper;
 import com.six.info.dao.userMapper;
 import com.six.info.entity.Application;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.Max;
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -191,6 +193,21 @@ public class InfoService {
         List type = new ArrayList(set);
         return type;
     }
+
+    public List findListByType(String type){
+        List<Point> list= applicationMapper.findListByType(type);
+        return list;
+    }
+    public List  findAllList(){
+        List<Point> list= applicationMapper.findAllList();
+        ArrayList<String> proFList = new ArrayList<String>();
+        for(int i=0;i<list.size();i++){
+            proFList.add(list.get(i).getType());
+        }
+        Set set =new HashSet(proFList);
+        List proF = new ArrayList(set);
+        return proF;
+    }
     public List findProfessionF(String type){
         List<Type> list= applicationMapper.findProfessionF(type);
         ArrayList<String> proFList = new ArrayList<String>();
@@ -211,6 +228,7 @@ public class InfoService {
         List proS = new ArrayList(set);
         return proS;
     }
+
     public int updateUserPoint(Info info){
         info.setIsread(1);
         return userMapper.updateUserPoint(info);
@@ -231,8 +249,11 @@ public class InfoService {
         List<Info> InfoList =userMapper.findInfoList(type1.getId(),1);
         return InfoList;
     }
-    public List<Info> findInfoListByStatus(int isread){
-        return userMapper.findInfoListByStatus(isread);
+    public List<Info> findInfoListByStatus(int isread,int currPage, int pageSize)throws Exception {
+        List<Info> info = userMapper.findInfoListByStatus(isread);
+
+        return  info;
+
     }
     public Info findInfoById(int id){
         return userMapper.findInfoById(id);

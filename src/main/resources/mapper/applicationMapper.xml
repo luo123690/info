@@ -40,11 +40,23 @@
         </where>
     </select>
 
+    <select id="findAllList" resultType="com.six.info.entity.Point">
+        select  *  from point
+    </select>
+
     <select id="findTypeById" resultType="com.six.info.entity.Type">
         select * from type
         <where>
             <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
             id=#{id}
+        </where>
+    </select>
+
+    <select id="findListByType" resultType="com.six.info.entity.Point">
+        select * from point
+        <where>
+            <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
+            type=#{type}
         </where>
     </select>
 

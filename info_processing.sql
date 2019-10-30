@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50711
 File Encoding         : 65001
 
-Date: 2019-10-24 10:35:54
+Date: 2019-10-30 09:13:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -71,29 +71,46 @@ CREATE TABLE `application` (
 DROP TABLE IF EXISTS `info`;
 CREATE TABLE `info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` int(11) DEFAULT NULL,
-  `applyid` int(11) DEFAULT NULL,
-  `typeid` int(11) DEFAULT NULL,
-  `profession` varchar(255) DEFAULT NULL,
-  `education` varchar(255) DEFAULT NULL,
-  `honor` varchar(255) DEFAULT NULL,
-  `skill` varchar(255) DEFAULT NULL,
-  `technology` varchar(255) DEFAULT NULL,
-  `patent` varchar(255) DEFAULT NULL,
-  `paper` varchar(255) DEFAULT NULL,
-  `professor` varchar(255) DEFAULT NULL,
+  `userid` int(11) DEFAULT NULL COMMENT '用户id',
+  `typeid` int(11) DEFAULT NULL COMMENT '申请岗位id',
+  `name` varchar(255) DEFAULT NULL,
+  `profession` varchar(255) DEFAULT NULL COMMENT '职称',
+  `education` varchar(255) DEFAULT NULL COMMENT '教育',
+  `honor` varchar(255) DEFAULT NULL COMMENT '荣誉',
+  `skill` varchar(255) DEFAULT NULL COMMENT '技能',
+  `technology` varchar(255) DEFAULT NULL COMMENT '技术',
+  `patent` varchar(255) DEFAULT NULL COMMENT '专利',
+  `paper` varchar(255) DEFAULT NULL COMMENT '论文',
+  `professor` varchar(255) DEFAULT NULL COMMENT '专业',
   `isread` int(11) DEFAULT '0',
   `point` double(11,2) DEFAULT '0.00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of info
 -- ----------------------------
-INSERT INTO `info` VALUES ('37', '7', '13', null, '初级（技师）职称', '研究生（硕士）学历', '国家级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', '国家级技能竞赛三等奖', '国家级科技成果一等奖', null, 'CN期刊第一作者/篇', '国际专业认证高级证书', '1', '65.00');
-INSERT INTO `info` VALUES ('38', '7', '0', null, null, null, null, null, null, null, null, null, '1', '0.00');
-INSERT INTO `info` VALUES ('39', '7', '13', null, '初级（技师）职称', '研究生（硕士）学历', '国家级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', '国家级技能竞赛三等奖', '国家级科技成果一等奖', '', 'CN期刊第一作者/篇', '国际专业认证高级证书', '1', '68.00');
-INSERT INTO `info` VALUES ('40', '7', '13', null, '初级（技师）职称', '研究生（硕士）学历', '国家级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', '国家级技能竞赛三等奖', '国家级科技成果一等奖', '', 'CN期刊第一作者/篇', '国际专业认证高级证书', '1', '60.00');
+INSERT INTO `info` VALUES ('37', '7', '13', '骆炳捷-1', '初级（技师）职称', '研究生（硕士）学历', '国家级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', '国家级技能竞赛三等奖', '国家级科技成果一等奖', null, 'CN期刊第一作者/篇', '国际专业认证高级证书', '1', '65.00');
+INSERT INTO `info` VALUES ('38', '7', '5', '骆炳捷0', null, null, null, null, null, null, null, null, '1', '0.00');
+INSERT INTO `info` VALUES ('39', '7', '9', '骆炳捷1', '初级（技师）职称', '研究生（硕士）学历', '国家级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', '国家级技能竞赛三等奖', '国家级科技成果一等奖', '', 'CN期刊第一作者/篇', '国际专业认证高级证书', '1', '68.00');
+INSERT INTO `info` VALUES ('40', '7', '8', '骆炳捷2', '初级（技师）职称', '研究生（硕士）学历', '国家级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', '国家级技能竞赛三等奖', '国家级科技成果一等奖', '', 'CN期刊第一作者/篇', '国际专业认证高级证书', '1', '60.00');
+INSERT INTO `info` VALUES ('41', '5', '6', '骆炳捷3', '高级（技师）职称', '博士学历', null, null, null, null, null, null, '0', '15.00');
+INSERT INTO `info` VALUES ('42', '5', '17', '骆炳捷4', null, null, null, null, null, null, null, null, '0', '0.00');
+INSERT INTO `info` VALUES ('43', '5', '4', '骆炳捷5', null, null, null, null, null, null, null, null, '0', '0.00');
+INSERT INTO `info` VALUES ('44', '5', '5', '骆炳捷6', null, null, null, null, null, null, null, null, '0', '0.00');
+INSERT INTO `info` VALUES ('45', '5', '19', '骆炳捷7', null, null, null, null, null, null, null, null, '0', '0.00');
+INSERT INTO `info` VALUES ('46', '5', '21', '骆炳捷8', null, null, null, null, null, null, null, null, '0', '0.00');
+INSERT INTO `info` VALUES ('47', '5', '5', '骆炳捷9', null, null, null, null, null, null, null, null, '0', '0.00');
+INSERT INTO `info` VALUES ('48', '5', '9', '骆炳捷10', null, null, null, null, null, null, null, null, '0', '0.00');
+INSERT INTO `info` VALUES ('49', '5', '7', '骆炳捷11', null, null, null, null, null, null, null, null, '0', '0.00');
+INSERT INTO `info` VALUES ('50', '5', '7', '骆炳捷12', null, null, null, null, null, null, null, null, '0', '0.00');
+INSERT INTO `info` VALUES ('51', '5', '4', '骆炳捷13', null, null, null, null, null, null, null, null, '0', '0.00');
+INSERT INTO `info` VALUES ('52', '5', '4', '骆炳捷14', null, null, null, null, null, null, null, null, '0', '0.00');
+INSERT INTO `info` VALUES ('53', '5', '30', '骆炳捷15', null, null, null, null, null, null, null, null, '0', '0.00');
+INSERT INTO `info` VALUES ('54', '5', '30', '骆炳捷16', null, null, null, null, null, null, null, null, '0', '0.00');
+INSERT INTO `info` VALUES ('55', '5', '8', '骆炳捷17', null, null, null, null, null, null, null, null, '0', '0.00');
+INSERT INTO `info` VALUES ('56', '5', '25', '骆炳捷18', null, null, null, null, null, null, null, null, '0', '0.00');
+INSERT INTO `info` VALUES ('57', '5', '4', '骆炳捷', null, null, null, null, null, null, null, null, '0', '0.00');
 
 -- ----------------------------
 -- Table structure for login
@@ -109,7 +126,7 @@ CREATE TABLE `login` (
 -- ----------------------------
 -- Records of login
 -- ----------------------------
-INSERT INTO `login` VALUES ('1', '123', '7');
+INSERT INTO `login` VALUES ('1', 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3In0.b0G9eqHiRFK1mIzjpBE1NnMiIJmffZLY617gUgt0Lp0', '7');
 INSERT INTO `login` VALUES ('2', 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1In0.iL2jjctc7JrtdWanR9dGmB4Jxlu0J2zIxEtwo5ZLqWU', '5');
 INSERT INTO `login` VALUES ('3', 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4In0.xuxUB27LbK8pp0viPb_Wg3R_b0IN0kbPtIQO8cYF8IU', '8');
 
@@ -129,7 +146,6 @@ CREATE TABLE `point` (
 -- ----------------------------
 -- Records of point
 -- ----------------------------
-INSERT INTO `point` VALUES ('0', null, null, null, null);
 INSERT INTO `point` VALUES ('1', '初级（技师）职称', '30', '0.05', '职称');
 INSERT INTO `point` VALUES ('2', '中级（技师）职称', '60', '0.05', '职称');
 INSERT INTO `point` VALUES ('3', '高级（技师）职称', '100', '0.05', '职称');
@@ -291,7 +307,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', '1231234', '1231234', '骆炳捷', null, '17600905236', '6223011111111111', '北京市海淀区', '男', '99', null, null, null, null, null);
-INSERT INTO `user` VALUES ('5', '123123', '96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e', '骆炳捷', null, '17600905236', null, '北京市海淀区', '男', '99', null, null, null, null, null);
+INSERT INTO `user` VALUES ('5', '123123', '96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e', '骆炳捷', '26', '17600905236', '62230111111111111', '北京市海淀区', '男', '99', '北京林业大学', '软件工程（专硕）', '人力部', '2019.07', '研究生期间参与过大型项目的设计、开发工作，2019年8入职北京联通，目前在北京联通人力部工作。');
 INSERT INTO `user` VALUES ('6', '123456', '96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e', '骆炳捷', null, '17600905236', '62230111111111111', '北京市海淀区', '男', '99', null, null, null, null, null);
 INSERT INTO `user` VALUES ('7', '123123123', '932f3c1b56257ce8539ac269d7aab42550dacf8818d075f0bdf1990562aae3ef', '骆炳捷', '26', '17600905236', '62230111111111111', '北京市海淀区', '男', '99', '北京林业大学', '软件工程', '人力部', '2019.07', '参与过大型项目的设计、开发工作');
 INSERT INTO `user` VALUES ('8', 'admin', '96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e', '管理员', '30', '17600905236', '62230111111111111', '北京市海淀区', '男', '1', null, null, null, null, null);
