@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50711
 File Encoding         : 65001
 
-Date: 2019-10-30 09:13:59
+Date: 2019-11-04 11:06:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -75,42 +75,57 @@ CREATE TABLE `info` (
   `typeid` int(11) DEFAULT NULL COMMENT '申请岗位id',
   `name` varchar(255) DEFAULT NULL,
   `profession` varchar(255) DEFAULT NULL COMMENT '职称',
+  `professionPoint` double(11,0) DEFAULT NULL,
   `education` varchar(255) DEFAULT NULL COMMENT '教育',
+  `educationPoint` double(11,0) DEFAULT NULL,
   `honor` varchar(255) DEFAULT NULL COMMENT '荣誉',
+  `honorPoint` double(11,0) DEFAULT NULL,
   `skill` varchar(255) DEFAULT NULL COMMENT '技能',
+  `skillPoint` double(11,0) DEFAULT NULL,
   `technology` varchar(255) DEFAULT NULL COMMENT '技术',
+  `technologyPoint` double(11,0) DEFAULT NULL,
   `patent` varchar(255) DEFAULT NULL COMMENT '专利',
+  `patentPoint` double(11,0) DEFAULT NULL,
   `paper` varchar(255) DEFAULT NULL COMMENT '论文',
+  `paperPoint` double(11,0) DEFAULT NULL,
   `professor` varchar(255) DEFAULT NULL COMMENT '专业',
+  `professorPoint` double(11,0) DEFAULT NULL,
   `isread` int(11) DEFAULT '0',
   `point` double(11,2) DEFAULT '0.00',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of info
 -- ----------------------------
-INSERT INTO `info` VALUES ('37', '7', '13', '骆炳捷-1', '初级（技师）职称', '研究生（硕士）学历', '国家级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', '国家级技能竞赛三等奖', '国家级科技成果一等奖', null, 'CN期刊第一作者/篇', '国际专业认证高级证书', '1', '65.00');
-INSERT INTO `info` VALUES ('38', '7', '5', '骆炳捷0', null, null, null, null, null, null, null, null, '1', '0.00');
-INSERT INTO `info` VALUES ('39', '7', '9', '骆炳捷1', '初级（技师）职称', '研究生（硕士）学历', '国家级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', '国家级技能竞赛三等奖', '国家级科技成果一等奖', '', 'CN期刊第一作者/篇', '国际专业认证高级证书', '1', '68.00');
-INSERT INTO `info` VALUES ('40', '7', '8', '骆炳捷2', '初级（技师）职称', '研究生（硕士）学历', '国家级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', '国家级技能竞赛三等奖', '国家级科技成果一等奖', '', 'CN期刊第一作者/篇', '国际专业认证高级证书', '1', '60.00');
-INSERT INTO `info` VALUES ('41', '5', '6', '骆炳捷3', '高级（技师）职称', '博士学历', null, null, null, null, null, null, '0', '15.00');
-INSERT INTO `info` VALUES ('42', '5', '17', '骆炳捷4', null, null, null, null, null, null, null, null, '0', '0.00');
-INSERT INTO `info` VALUES ('43', '5', '4', '骆炳捷5', null, null, null, null, null, null, null, null, '0', '0.00');
-INSERT INTO `info` VALUES ('44', '5', '5', '骆炳捷6', null, null, null, null, null, null, null, null, '0', '0.00');
-INSERT INTO `info` VALUES ('45', '5', '19', '骆炳捷7', null, null, null, null, null, null, null, null, '0', '0.00');
-INSERT INTO `info` VALUES ('46', '5', '21', '骆炳捷8', null, null, null, null, null, null, null, null, '0', '0.00');
-INSERT INTO `info` VALUES ('47', '5', '5', '骆炳捷9', null, null, null, null, null, null, null, null, '0', '0.00');
-INSERT INTO `info` VALUES ('48', '5', '9', '骆炳捷10', null, null, null, null, null, null, null, null, '0', '0.00');
-INSERT INTO `info` VALUES ('49', '5', '7', '骆炳捷11', null, null, null, null, null, null, null, null, '0', '0.00');
-INSERT INTO `info` VALUES ('50', '5', '7', '骆炳捷12', null, null, null, null, null, null, null, null, '0', '0.00');
-INSERT INTO `info` VALUES ('51', '5', '4', '骆炳捷13', null, null, null, null, null, null, null, null, '0', '0.00');
-INSERT INTO `info` VALUES ('52', '5', '4', '骆炳捷14', null, null, null, null, null, null, null, null, '0', '0.00');
-INSERT INTO `info` VALUES ('53', '5', '30', '骆炳捷15', null, null, null, null, null, null, null, null, '0', '0.00');
-INSERT INTO `info` VALUES ('54', '5', '30', '骆炳捷16', null, null, null, null, null, null, null, null, '0', '0.00');
-INSERT INTO `info` VALUES ('55', '5', '8', '骆炳捷17', null, null, null, null, null, null, null, null, '0', '0.00');
-INSERT INTO `info` VALUES ('56', '5', '25', '骆炳捷18', null, null, null, null, null, null, null, null, '0', '0.00');
-INSERT INTO `info` VALUES ('57', '5', '4', '骆炳捷', null, null, null, null, null, null, null, null, '0', '0.00');
+INSERT INTO `info` VALUES ('37', '7', '13', '骆炳捷-1', '初级（技师）职称', null, '研究生（硕士）学历', null, '国家级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', null, '国家级技能竞赛三等奖', null, '国家级科技成果一等奖', null, null, null, 'CN期刊第一作者/篇', null, '国际专业认证高级证书', null, '1', '65.00', null);
+INSERT INTO `info` VALUES ('38', '7', '5', '骆炳捷0', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1', '0.00', null);
+INSERT INTO `info` VALUES ('39', '7', '9', '骆炳捷1', '初级（技师）职称', null, '研究生（硕士）学历', null, '国家级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', null, '国家级技能竞赛三等奖', null, '国家级科技成果一等奖', null, '', null, 'CN期刊第一作者/篇', null, '国际专业认证高级证书', null, '1', '68.00', null);
+INSERT INTO `info` VALUES ('40', '7', '8', '骆炳捷2', '初级（技师）职称', null, '研究生（硕士）学历', null, '国家级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', null, '国家级技能竞赛三等奖', null, '国家级科技成果一等奖', null, '', null, 'CN期刊第一作者/篇', null, '国际专业认证高级证书', null, '1', '60.00', null);
+INSERT INTO `info` VALUES ('41', '5', '5', '骆炳捷3', '高级（技师）职称', null, '博士学历', null, null, null, null, null, null, null, null, null, null, null, null, null, '1', '0.00', '');
+INSERT INTO `info` VALUES ('42', '5', '17', '骆炳捷4', null, '0', '博士学历', '10', '国家级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', '10', '省部集团级技能竞赛一等奖,省部集团级技能竞赛二等奖', '20', null, null, null, null, null, null, null, null, '1', '56.00', '13121');
+INSERT INTO `info` VALUES ('43', '5', '4', '骆炳捷5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1', '55.00', '你分有点低');
+INSERT INTO `info` VALUES ('44', '5', '5', '骆炳捷6', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1', '14.00', '');
+INSERT INTO `info` VALUES ('45', '5', '19', '骆炳捷7', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '0.00', null);
+INSERT INTO `info` VALUES ('46', '5', '20', '骆炳捷8', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '0.00', null);
+INSERT INTO `info` VALUES ('47', '5', '5', '骆炳捷9', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '0.00', null);
+INSERT INTO `info` VALUES ('48', '5', '9', '骆炳捷10', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '0.00', null);
+INSERT INTO `info` VALUES ('49', '5', '7', '骆炳捷11', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '0.00', null);
+INSERT INTO `info` VALUES ('50', '5', '7', '骆炳捷12', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '0.00', null);
+INSERT INTO `info` VALUES ('51', '5', '4', '骆炳捷13', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '0.00', null);
+INSERT INTO `info` VALUES ('52', '5', '4', '骆炳捷14', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '0.00', null);
+INSERT INTO `info` VALUES ('53', '5', '3', '骆炳捷15', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '0.00', null);
+INSERT INTO `info` VALUES ('54', '5', '13', '骆炳捷16', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '0.00', null);
+INSERT INTO `info` VALUES ('55', '5', '8', '骆炳捷17', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '0.00', null);
+INSERT INTO `info` VALUES ('56', '5', '18', '骆炳捷18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '0.00', null);
+INSERT INTO `info` VALUES ('57', '5', '4', '骆炳捷', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '0.00', null);
+INSERT INTO `info` VALUES ('58', '5', '12', '骆炳捷', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '0.00', null);
+INSERT INTO `info` VALUES ('59', '5', '12', '骆炳捷', '', '0', null, '0', null, null, '国家级技能竞赛三等奖', '12', null, null, '', '0', 'CN期刊第一作者/篇', '10', '', '0', '0', '22.00', null);
+INSERT INTO `info` VALUES ('60', '5', '12', '骆炳捷', '中级（技师）职称,初级（技师）职称', '3', '研究生（硕士）学历,本科（学士）学历', '8', '省部集团级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', '6', '国家级技能竞赛二等奖', '16', null, '20', '实用新型专利/项', '2', '著作副主编或编委/部,核心期刊发表论文或被SCI、EI、ISTP等收录的合著/篇,CN期刊合著/篇', '20', '国际专业认证中级证书', '3', '1', '76.00', '.........应该为17.5');
+INSERT INTO `info` VALUES ('61', '5', '12', '骆炳捷', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '0.00', null);
+INSERT INTO `info` VALUES ('62', '5', '7', '骆炳捷', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '0.00', null);
+INSERT INTO `info` VALUES ('63', '5', '2', '骆炳捷', '中级（技师）职称', '3', '本科（学士）学历,研究生（硕士）学历', '8', '地厅省公司级技术能手、五一劳动奖章、劳动模范、先进工作者、标兵荣誉奖章', '3', '国家级技能竞赛一等奖', '20', null, '20', '实用新型专利/项,国家发明专利/项', '5', '著作第一主编/部', '16', '国际专业认证初级证书', '2', '0', '77.00', null);
 
 -- ----------------------------
 -- Table structure for login
@@ -268,17 +283,17 @@ INSERT INTO `type` VALUES ('6', '技术', 'IT', '业务与需求');
 INSERT INTO `type` VALUES ('7', '技术', 'IT', '研发与测试');
 INSERT INTO `type` VALUES ('8', '技术', 'IT', '生产与运维');
 INSERT INTO `type` VALUES ('9', '技术', 'IT', '大数据与云计算');
-INSERT INTO `type` VALUES ('10', '技术', 'IT', '其他');
+INSERT INTO `type` VALUES ('10', '技术', 'IT', 'IT其他');
 INSERT INTO `type` VALUES ('11', '技术', '运行与维护', '网络监控');
 INSERT INTO `type` VALUES ('12', '技术', '运行与维护', '核心网');
 INSERT INTO `type` VALUES ('13', '技术', '运行与维护', '移动无线网');
-INSERT INTO `type` VALUES ('14', '技术', '运行与维护', 'IT');
-INSERT INTO `type` VALUES ('23', '技术', '运行与维护', '应急与安全');
-INSERT INTO `type` VALUES ('24', '技术', '运行与维护', '动力配套、局房');
-INSERT INTO `type` VALUES ('25', '技术', '运行与维护', '其他');
-INSERT INTO `type` VALUES ('29', '技术', '网络建设', '建设管理与创新');
-INSERT INTO `type` VALUES ('30', '技术', '网络建设', '网络承载与接入');
-INSERT INTO `type` VALUES ('31', '技术', '网络建设', '支撑及其他');
+INSERT INTO `type` VALUES ('14', '技术', '运行与维护', 'IT运维');
+INSERT INTO `type` VALUES ('15', '技术', '运行与维护', '应急与安全');
+INSERT INTO `type` VALUES ('16', '技术', '运行与维护', '动力配套、局房');
+INSERT INTO `type` VALUES ('17', '技术', '运行与维护', '运维其他');
+INSERT INTO `type` VALUES ('18', '技术', '网络建设', '建设管理与创新');
+INSERT INTO `type` VALUES ('19', '技术', '网络建设', '网络承载与接入');
+INSERT INTO `type` VALUES ('20', '技术', '网络建设', '支撑及其他');
 
 -- ----------------------------
 -- Table structure for user
