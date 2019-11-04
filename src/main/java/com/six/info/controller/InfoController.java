@@ -51,7 +51,6 @@ public class InfoController {
                 info.setUserid(user.getId());
                 if(infoService.findTypeByProfession(type)!=null){
                     info.setTypeid(infoService.findTypeByProfession(type).getId());
-                    System.out.println(infoService.findTypeByProfession(type).getId());
                     //从数据库返回的密码
                     info.setName(name);
                     infoService.addUserInfo(info);
@@ -172,9 +171,7 @@ public class InfoController {
     }
     //更新用户分数
     @PostMapping("/updateUserPoint")
-    public Object updateUserPoint(Info info,ServletRequest request,ServletResponse servletResponse) {
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
-        response.setHeader("Access-Control-Allow-Origin", "*");
+    public Object updateUserPoint(String remark,int id,Integer point,ServletRequest request) {
         JSONObject jsonObject = new JSONObject();
         HttpServletRequest req = (HttpServletRequest) request;
         String token = req.getHeader("token");
@@ -190,6 +187,15 @@ public class InfoController {
                 //数据库中的user信息
                 User user = userService.findById(loginuser.getUserid());
                 if(user.getType()==1){
+                    Info info=new Info();
+                    info.setId(id);
+                    if(point!=null&&!point.equals("")){
+                        info.setPoint(point);
+                    }
+                    if(remark!=null&&!remark.equals("")){
+                        info.setRemark(remark);
+                    }
+                    info.setRemark(remark);
                     int data = infoService.updateUserPoint(info);
                     jsonObject.put("code", "200");
                     jsonObject.put("message", "修改成功");
@@ -231,9 +237,7 @@ public class InfoController {
 
     //查询信息列表
     @GetMapping("/findInfoList")
-    public Object findInfoList(Type type,ServletResponse servletResponse){
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
-        response.setHeader("Access-Control-Allow-Origin", "*");
+    public Object findInfoList(Type type,int page)throws Exception{
         JSONObject jsonObject = new JSONObject();
         List<Info> data=infoService.findInfoList(type);
         List<Info> data1=new ArrayList<Info>();
@@ -243,9 +247,24 @@ public class InfoController {
 
             }
         }
+        int  pages=data.size() % 8== 0 ? (data.size()/8) : (data.size()/8)+1;
+        List<Info> list=new ArrayList<Info>();
+        int firstIndex = (page - 1) * 8;
+        int lastIndex = page * 8;
+        try {
+            if(lastIndex>data.size()){
+                lastIndex=data.size();
+            }
+            list =   data.subList(firstIndex, lastIndex);
+            //主要代码隐藏
+        }catch (IndexOutOfBoundsException e){
+            //处理数组越界异常
+            e.getMessage();
+        }
         jsonObject.put("code", "200");
         jsonObject.put("message", "查询成功");
-        jsonObject.put("data", data1);
+        jsonObject.put("pages", pages);
+        jsonObject.put("data", list);
         return jsonObject;
     }
 
@@ -264,17 +283,22 @@ public class InfoController {
 
 
     @GetMapping("/findInfoListByStatus")
-    public Object findInfoListByStatus(int isread,int page)throws Exception{
+    public Object findInfoListByStatus(int isread,int page)throws IndexOutOfBoundsException{
 
         JSONObject jsonObject = new JSONObject();
         //从第几条数据开始
 
-        List<Info> data=infoService.findInfoListByStatus(isread,page,8);
-        int pages=(int)Math.ceil(data.size()/8);
+        List<Info> data=infoService.findInfoListByStatus(isread);
+
+
+        int  pages=data.size() % 8== 0 ? (data.size()/8) : (data.size()/8)+1;
         List<Info> list=new ArrayList<Info>();
         int firstIndex = (page - 1) * 8;
         int lastIndex = page * 8;
         try {
+            if(lastIndex>data.size()){
+                lastIndex=data.size();
+            }
             list =   data.subList(firstIndex, lastIndex);
             //主要代码隐藏
         }catch (IndexOutOfBoundsException e){
@@ -289,11 +313,8 @@ public class InfoController {
     }
 
     @GetMapping("/findTypeByProfession")
-    public Object findTypeByProfession(Type type,ServletResponse servletResponse){
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
-        response.setHeader("Access-Control-Allow-Origin", "*");
+    public Object findTypeByProfession(Type type){
         JSONObject jsonObject = new JSONObject();
-        System.out.println(type.getProfessionF()+type.getProfessionS());
         jsonObject.put("code", "200");
         jsonObject.put("message", "查询成功");
         jsonObject.put("data",infoService.findTypeByProfession(type));

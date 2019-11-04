@@ -499,9 +499,7 @@ public class UserController {
         return jsonObject;
     }
     @PostMapping(value = "/getUserInfoById")
-    public Object getUserInfoById(@RequestParam("id")int id,ServletResponse servletResponse){
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
-        response.setHeader("Access-Control-Allow-Origin", "*");
+    public Object getUserInfoById(@RequestParam("id")int id){
         JSONObject jsonObject = new JSONObject();
         User user = userService.findById(id);
         if(user!=null){

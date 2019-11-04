@@ -6,15 +6,24 @@ public class Info {
     private String name;
     private int typeid;
     private String profession;
+    private double professionPoint;
     private String education;
+    private double educationPoint;
     private String honor;
+    private double honorPoint;
     private String skill;
+    private double skillPoint;
     private String technology;
+    private double technologyPoint;
     private String patent;
+    private double patentPoint;
     private String paper;
+    private double paperPoint;
     private String professor;
+    private double professorPoint;
     private int isread;
     private double point;
+    private String remark;
     private int pages;
 
     public Integer getId() {
@@ -127,5 +136,85 @@ public class Info {
 
     public void setPoint(double point) {
         this.point = point;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+
+    public double getProfessionPoint() {
+        return professionPoint;
+    }
+
+    public void setProfessionPoint(double professionPoint) {
+        this.professionPoint = professionPoint;
+    }
+
+    public double getEducationPoint() {
+        return educationPoint;
+    }
+
+    public void setEducationPoint(double educationPoint) {
+        this.educationPoint = educationPoint;
+    }
+
+    public double getHonorPoint() {
+        return honorPoint;
+    }
+
+    public void setHonorPoint(double honorPoint) {
+        this.honorPoint = honorPoint;
+    }
+
+    public double getSkillPoint() {
+        return skillPoint;
+    }
+
+    public void setSkillPoint(double skillPoint) {
+        this.skillPoint = skillPoint;
+    }
+
+    public double getTechnologyPoint() {
+        return technologyPoint;
+    }
+
+    public void setTechnologyPoint(double technologyPoint) {
+        this.technologyPoint = technologyPoint;
+    }
+
+    public double getPatentPoint() {
+        return patentPoint;
+    }
+
+    public void setPatentPoint(double patentPoint) {
+        this.patentPoint = patentPoint;
+    }
+
+    public double getPaperPoint() {
+        return paperPoint;
+    }
+
+    public void setPaperPoint(double paperPoint) {
+        this.paperPoint = paperPoint;
+    }
+
+    public double getProfessorPoint() {
+        return professorPoint;
+    }
+
+    public void setProfessorPoint(double professorPoint) {
+        this.professorPoint = professorPoint;
     }
 }

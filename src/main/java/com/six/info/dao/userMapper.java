@@ -9,7 +9,8 @@ import java.util.List;
 public interface userMapper {
     User findOne(User user);
     Type findTypeByProfession(Type type);
-    List<Info> findInfoList(int applyid,int isread);
+    Type findTypeByPro(Type type);
+    List<Info> findInfoList(int typeid,int isread);
     List<Info> findInfoListByStatus(int isread);
     Application findApplyInfoById(int id);
     Info findInfoById(int id);

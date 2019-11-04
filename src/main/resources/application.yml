@@ -7,7 +7,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/info_processing?serverTimezone=GMT
+    url: jdbc:mysql://localhost:3306/info_processing?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
     username: root
     password: 123
 

@@ -1,5 +1,6 @@
 package com.six.info.service;
 
+import com.alibaba.fastjson.JSON;
 import com.six.info.config.GlobalExceptionHandler;
 import com.six.info.dao.ApplicationMapper;
 import com.six.info.dao.userMapper;
@@ -49,7 +50,6 @@ public class InfoService {
             }
             professionPoint= Collections.max(professionPointList)*professionWeight;
         }
-
         //根据用户选择的教育的ID，按照“,”分割开，并查询数据库中对应的分数与权重
         double educationPoint=0.0;
         double educationWeight=0.0 ;
@@ -159,7 +159,7 @@ public class InfoService {
         double proSumPoint=0;
         double proPoint=0;
         double proWeight=0;
-        if(info.getProfessor()!=null&&info.getProfession().length()!=0){
+        if(info.getProfessor()!=null&&info.getProfessor().length()!=0){
             ArrayList<Integer> proPointList = new ArrayList<Integer>();
             String[] proList=info.getProfessor().split(",");
             for(int i=0;i<proList.length;i++){
@@ -172,9 +172,15 @@ public class InfoService {
             }
             proPoint=proSumPoint*proWeight;
         }
-
         sumPoint = professionPoint+educationPoint+honorPoint+skillPoint+tecPoint+patentPoint+paperPoint+proPoint;
-
+        info.setProfessionPoint(professionPoint);
+        info.setEducationPoint(educationPoint);
+        info.setHonorPoint(honorPoint);
+        info.setSkillPoint(skillPoint);
+        info.setTechnologyPoint(tecPoint);
+        info.setPatentPoint(patentPoint);
+        info.setPaperPoint(paperPoint);
+        info.setProfessorPoint(proPoint);
         info.setPoint(sumPoint);
         userMapper.addInfo(info);
         return info;
@@ -244,12 +250,12 @@ public class InfoService {
     public Type findTypeById(int id){
         return applicationMapper.findTypeById(id);
     }
-    public List<Info> findInfoList(Type type){
-        Type type1=userMapper.findTypeByProfession(type);
+    public List<Info> findInfoList(Type type)throws Exception{
+        Type type1=userMapper.findTypeByPro(type);
         List<Info> InfoList =userMapper.findInfoList(type1.getId(),1);
         return InfoList;
     }
-    public List<Info> findInfoListByStatus(int isread,int currPage, int pageSize)throws Exception {
+    public List<Info> findInfoListByStatus(int isread)throws IndexOutOfBoundsException {
         List<Info> info = userMapper.findInfoListByStatus(isread);
 
         return  info;

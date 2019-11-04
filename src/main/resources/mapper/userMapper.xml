@@ -19,28 +19,28 @@
         update info
         <set>
             <if test="profession != null" >
-                profession = #{profession},
+                profession = #{profession},professionPoint = #{professionPoint},
             </if>
             <if test="education != null" >
-                education = #{education},
+                education = #{education},educationPoint = #{educationPoint},
             </if>
             <if test="honor != null" >
-                honor = #{honor},
+                honor = #{honor},honorPoint = #{honorPoint},
             </if>
             <if test="skill != null" >
-                skill = #{skill},
+                skill = #{skill},skillPoint = #{skillPoint},
             </if>
             <if test="technology != null" >
-                technology = #{technology},
+                technology=#{technology},technologyPoint = #{technologyPoint},
             </if>
             <if test="patent != null" >
-                patent = #{patent},
+                patent = #{patent},patentPoint = #{patentPoint},
             </if>
             <if test="paper != null" >
-                paper = #{paper},
+                paper = #{paper},paperPoint = #{paperPoint},
             </if>
             <if test="professor != null" >
-                professor = #{professor},
+                professor = #{professor},professorPoint = #{professorPoint},
             </if>
             <if test="point != null" >
                 point = #{point},
@@ -66,6 +66,9 @@
     <update id="updateUserPoint" parameterType="com.six.info.entity.Info" >
         update info
         <set>
+            <if test="remark != null" >
+                remark = #{remark},
+            </if>
             <if test="point != null" >
                 point = #{point},
             </if>
@@ -147,11 +150,25 @@
         select * from type
         <where>
             <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
-                <if test="professionF!=''">
+            <if test="professionF !=''">
+                professionF=#{professionF}
+            </if>
+            <if test="professionS!=''">
+             and   professionS=#{professionS}
+            </if>
+        </where>
+    </select>
+
+    <select id="findTypeByPro" resultType="com.six.info.entity.Type">
+        select * from type
+        <where>
+            <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
+                <if test="professionF !='' and professionF != null">
                     professionF=#{professionF}
                 </if>
-                <if test="professionS!=''">
-                    and    professionS=#{professionS}
+                 or
+                <if test="professionS!='' and professionS != null">
+                       professionS=#{professionS}
                 </if>
         </where>
     </select>
@@ -160,8 +177,8 @@
         select * from info
         <where>
             <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
-            <if test="applyid!=null">
-                applyid=#{applyid} and
+            <if test="typeid!=null">
+                typeid=#{typeid} and
             </if>
                 isread=#{isread}
         </where>
@@ -175,9 +192,7 @@
         select * from info
         <where>
             <!-- 重复说一下，id 不能是 int，int 默认是 0，不可能是 null, 而 Integer 可以是 null-->
-            <if test="isread!=null">
                 isread=#{isread}
-            </if>
         </where>
     </select>
 
