@@ -21,7 +21,7 @@ public class User {
     private String department;
     private String graduate;
     private String intro;
-    private String indentify;
+    private String identify;
     private String avatar;
     private String address;
     private String sex;
@@ -77,11 +77,11 @@ public class User {
     }
 
     public String getIndentify() {
-        return indentify;
+        return identify;
     }
 
-    public void setIndentify(String indentify) {
-        this.indentify = indentify;
+    public void setIndentify(String identify) {
+        this.identify = identify;
     }
 
     public String getAvatar() {

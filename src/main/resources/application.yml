@@ -1,8 +1,7 @@
-#web:
+web:
  # uploadPath: /root/apache-tomcat-8.5.38/webapps/images/avatar
-
-#    uploadPath: E:\api\testImage
-#    upload-path: E:\api\testImage
+    uploadPath: D:\api
+    upload-path: D:\api\testImage
 #    questionImagePath: E:\api\testImage
 spring:
   datasource:

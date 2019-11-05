@@ -158,14 +158,14 @@ public class UserController {
                         jsonObject.put("code", "200");
                         jsonObject.put("message", "首次登陆成功");
                         jsonObject.put("token", token);
-                        jsonObject.put("data", userInDataBase);
+//                        jsonObject.put("data", userInDataBase);
                     } else {
                         loginInfo.setToken(token);
                         userService.updateToken(loginInfo);
                         jsonObject.put("code", "201");
                         jsonObject.put("message", "再次登陆成功");
                         jsonObject.put("token", token);
-                        jsonObject.put("data", userInDataBase);
+//                        jsonObject.put("data", userInDataBase);
                         }
                     }
                 else {

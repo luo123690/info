@@ -7,7 +7,7 @@
     <!--SELECT id, username, password FROM USER WHERE username = #{username}-->
     <!--</select>-->
     <insert id="addUser"  useGeneratedKeys="true" keyProperty="id" >
-        insert into user(username,password,name,tel,indentify,address,sex,age,college,profession,department,graduate,intro) values (#{username},#{password},#{name},#{tel},#{indentify},#{address},#{sex},#{age},#{college},#{profession},#{department},#{graduate},#{intro})
+        insert into user(username,password,name,tel,identify,address,sex,age,college,profession,department,graduate,intro) values (#{username},#{password},#{name},#{tel},#{identify},#{address},#{sex},#{age},#{college},#{profession},#{department},#{graduate},#{intro})
     </insert>
 
     <insert id="addUserInfo"  useGeneratedKeys="true" keyProperty="id" >
@@ -45,6 +45,7 @@
             <if test="point != null" >
                 point = #{point},
             </if>
+                fileName = #{fileName},
         </set>
         where id=#{id}
     </update>
@@ -103,7 +104,9 @@
             <if test="name !=null">
                 name = #{name},
             </if>
-
+            <if test="intro !=null">
+                intro = #{intro},
+            </if>
         </set>
         where id=#{id}
     </update>

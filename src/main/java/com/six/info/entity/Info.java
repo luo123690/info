@@ -25,6 +25,7 @@ public class Info {
     private double point;
     private String remark;
     private int pages;
+    private String fileName;
 
     public Integer getId() {
         return id;
@@ -216,5 +217,13 @@ public class Info {
 
     public void setProfessorPoint(double professorPoint) {
         this.professorPoint = professorPoint;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }
